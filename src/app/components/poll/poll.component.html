@@ -1,0 +1,94 @@
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100" style="width: 500px; padding: 61px 107px 33px 95px;">
+
+      <form class="login100-form " style="width: 300px;" (submit)="vote()" [formGroup]="pollForm">
+        <span class="login100-form-title">
+          THÔNG TIN CÁ NHÂN
+        </span>
+
+        <div class="wrap-input100">
+          <input class="input100" type="text" formControlName="fullName" placeholder="Họ và tên">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap-input100">
+          <input class="input100" type="text" formControlName="yearOfBirth" placeholder="Năm sinh">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap-input100">
+          <input class="input100" type="text" formControlName="phone" placeholder="Số điện thoại">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap-input100" data-validate="Yêu cầu nhập đúng định dạng email: ex@abc.xyz">
+          <input class="input100" type="text" formControlName="email" placeholder="Email">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <span class="login100-form-title" style="padding-top: 42px;">
+          PHONG CÁCH ĐẦU TƯ CỦA BẠN LÀ GÌ?
+        </span>
+
+        <div class="container-login100-form-btn" style="margin-top: -80px;">
+          <ul class="pcdt">
+            <li>
+              <input type="radio" id="tt" formControlName="pcdt_s" value="1"/>
+              <label for="tt">Thận trọng</label>
+            </li>
+            <li>
+              <input type="radio" id="cb" formControlName="pcdt_s" value="2" />
+              <label for="cb">Cân bằng</label>
+            </li>
+            <li>
+              <input type="radio" id="mh" formControlName="pcdt_s" value="3"/>
+              <label for="mh">Mạo hiểm</label>
+            </li>
+          </ul>
+          <span *ngIf="!pollForm.value.pcdt_s" >Vui lòng chọn kiểu nhà đầu tư</span>
+        </div>
+
+        <span class="login100-form-title" style="padding-top: 42px;">
+          Dự đoán số nhà đầu tư có phong cách giống bạn
+        </span>
+
+        <div class="wrap-input100" style="margin-top: -30px;">
+          <input class="input100" type="text" formControlName="predict" placeholder="Dự đoán">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn">
+            Nhận kết quả
+          </button>
+          <span *ngIf="!isValid" >Vui lòng nhập đủ thông tin</span>
+        </div>
+      </form>
+    </div>
+    <br>
+  </div>
+
+</div>
+<div id='cssmenu' style="position: absolute; top: 15px; left: 10px;">
+  <ul>
+     <li class='active'><a href='/poll'>Minipoll</a></li>
+     <li><a href='/chart'>Kết quả</a></li>
+  </ul>
+  </div>

@@ -1,0 +1,40 @@
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+        <img src="assets/images/img-01.png" alt="IMG">
+      </div>
+
+      <form class="login100-form " [formGroup]="loginForm" (submit)="login($event)">
+        <span class="login100-form-title">
+          Đăng nhập
+        </span>
+
+        <div class="wrap-input100 " >
+          <input class="input100" type="text" formControlName="email" placeholder="Email" >
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap-input100">
+          <input class="input100" type="password" formControlName="password" placeholder="Mật khẩu" >
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+        <span>{{message}}</span>
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn">
+            Đăng nhập
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
