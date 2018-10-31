@@ -1,0 +1,47 @@
+<div class="limiter" style="position: relative;">
+  <div class="container-login100" id="winner">
+
+    <div class="wrap-login100" style="width: 1300px; height: 500px; padding: 61px 107px 33px 95px;" >
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 40px; position: absolute;">
+
+        <span class="result-title" style="padding-bottom: 27px;">
+          XIN CHÚC MỪNG NHÀ ĐẦU TƯ THẬN TRỌNG
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollTT.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollTT.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollTT.predict}}</p>
+        <p class="result-text">Vào lúc: {{timett}}</p>
+      </div>
+
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 40px; position: absolute; margin-left: 400px;">
+        <span class="result-title" style="padding-bottom: 27px;">
+          XIN CHÚC MỪNG NHÀ ĐẦU TƯ CÂN BẰNG
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollCB.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollCB.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollCB.predict}}</p>
+        <p class="result-text">Vào lúc: {{timecb}}</p>
+
+      </div>
+
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 40px; position: absolute; margin-left: 800px;">
+
+        <span class="result-title" style="padding-bottom: 27px;">
+          XIN CHÚC MỪNG NHÀ ĐẦU TƯ MẠO HIỂM
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollMH.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollMH.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollMH.predict}}</p>
+        <p class="result-text">Vào lúc: {{timemh}}</p>
+
+      </div>
+    </div>
+    <div class="container-login100-form-btn" >
+        <button class="login100-form-btn" style="width: 20%;" (click)="exportWinner()" id="btnDownload" >
+          Tải về kết quả
+        </button>
+      </div>
+    <br>
+  </div>
+
+</div>

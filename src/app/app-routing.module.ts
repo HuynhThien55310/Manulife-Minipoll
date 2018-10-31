@@ -3,6 +3,7 @@ import { PollComponent } from './components/poll/poll.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { WinnerComponent } from './components/winner/winner.component';
 
 const appRoutes: Routes = [
   {
@@ -12,6 +13,10 @@ const appRoutes: Routes = [
   {
     path: 'chart',
     component: ChartComponent
+  },
+  {
+    path: 'winner',
+    component: WinnerComponent
   },
   {
     path: 'poll',

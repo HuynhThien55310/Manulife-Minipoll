@@ -17,11 +17,11 @@ import { Observable } from 'rxjs';
 import * as html2canvas from 'html2canvas';
 import domtoimage from 'dom-to-image';
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css']
+  selector: 'app-winner',
+  templateUrl: './winner.component.html',
+  styleUrls: ['./winner.component.css']
 })
-export class ChartComponent implements OnInit {
+export class WinnerComponent implements OnInit {
   pollTT = <Poll>{};
   pollCB = <Poll>{};
   pollMH = <Poll>{};
@@ -34,9 +34,9 @@ export class ChartComponent implements OnInit {
   mhQty: number;
 
   data: any;
-  chartOptions: any;
 
-  chart = [];
+  isDownloaded = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private pollService: PollService
@@ -116,85 +116,7 @@ export class ChartComponent implements OnInit {
           this.timemh = this.setTime(this.pollMH.hour, this.pollMH.minute);
           this.mhQty = mhpolls.length;
           console.log(this.pollMH);
-          this.data = {
-            label: 'Số nhà đầu tư',
-            data: [this.ttQty, this.cbQty, this.mhQty, 0, 200],
-            backgroundColor: 'rgba(15, 138, 64, 1)'
-            ,
-            borderColor: 'rgba(99, 132, 0, 1)'
-          };
 
-          this.chartOptions = {
-            scales: {
-              yAxes: [{
-                ticks: {
-                    fontSize: 40
-                }
-            }]
-            },
-            elements: {
-              rectangle: {
-                borderSkipped: 'left'
-              }
-            }
-          };
-
-          this.chart = new Chart('canvas', {
-            type: 'bar',
-            data: {
-              labels: [
-                'Nhà đầu tư Thận trọng',
-                'Nhà đầu tư Cân bằng',
-                'Nhà đầu tư Mạo hiểm'
-              ],
-              datasets: [this.data]
-            },
-            options: {
-              animation: {
-                duration: 1,
-                onComplete: function() {
-                  const chartInstance = this.chart,
-                    ctx = chartInstance.ctx;
-                  ctx.font = Chart.helpers.fontString(
-                    20,
-                    Chart.defaults.global.defaultFontStyle,
-                    Chart.defaults.global.defaultFontFamily
-                  );
-
-                  ctx.textAlign = 'center';
-                  ctx.textBaseline = 'bottom';
-
-                  this.data.datasets.forEach(function(dataset, i) {
-                    const meta = chartInstance.controller.getDatasetMeta(i);
-                    meta.data.forEach(function(bar, index) {
-                      const data = dataset.data[index];
-                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                    });
-                  });
-                }
-              },
-              scales: {
-                yAxes: [{
-                  ticks: {
-                      fontSize: 20,
-                      fontColor: 'black'
-                  }
-              }],
-                xAxes: [{
-                  ticks: {
-                      fontSize: 20,
-                      fontColor: 'black'
-                  }
-              }]
-              },
-              elements: {
-                rectangle: {
-                  borderSkipped: 'left'
-                }
-              }
-            }
-
-          });
         });
       });
     });
@@ -227,12 +149,13 @@ export class ChartComponent implements OnInit {
     return time;
   }
 
-  exportChart() {
+  exportWinner() {
 
-    domtoimage.toJpeg(document.getElementById('chart'), { quality: 0.95 })
+
+    domtoimage.toJpeg(document.getElementById('winner'), { quality: 0.95 })
     .then(function (dataUrl) {
         const link = document.createElement('a');
-        link.download = 'chart.jpeg';
+        link.download = 'winner.jpeg';
         link.href = dataUrl;
         const event = document.createEvent('MouseEvents');
         event.initMouseEvent(
@@ -240,6 +163,8 @@ export class ChartComponent implements OnInit {
                 , false, false, false, false, 0, null
         );
         link.dispatchEvent(event);
+
     });
+
   }
 }

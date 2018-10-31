@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { XRegExp} from 'xregexp';
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
@@ -14,7 +15,11 @@ export class PollComponent implements OnInit {
   pollForm: FormGroup;
   isValid = true;
   time: string;
-
+  message = '';
+  FULLNAME_PATTERN =
+            '^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ' +
+            'ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ' +
+            'ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$';
   private ttCollection: AngularFirestoreCollection<Poll>;
   private cbCollection: AngularFirestoreCollection<Poll>;
   private mhCollection: AngularFirestoreCollection<Poll>;
@@ -43,11 +48,37 @@ export class PollComponent implements OnInit {
     if (this.poll.email === '' || this.poll.fullName === ''
     || this.poll.phone === '' || this.poll.yearOfBirth === ''
     || this.pollForm.value.predict === '' || this.pollForm.value.pcdt_s === '') {
-      this.isValid = false;
+      this.message = 'Vui lòng nhập đủ thông tin';
       console.log('not pass');
     } else {
-      this.isValid = true;
+      if (isNaN(this.pollForm.value.predict) === true || this.poll.predict < 0) {
+        this.message = 'Dự đoán không hợp lệ';
+        return;
+      }
 
+      if (isNaN(this.pollForm.value.yearOfBirth) === true || Number(this.poll.yearOfBirth) < 1900 || Number(this.poll.yearOfBirth) > 2000) {
+        console.log('vao');
+        this.message = 'Năm sinh không hợp lệ';
+        return;
+      }
+
+      if (isNaN(this.pollForm.value.phone) === true || this.pollForm.value.phone.length < 9 || this.pollForm.value.phone.length > 11) {
+        console.log('vao');
+        this.message = 'Số điện thoại không hợp lệ';
+        return;
+      }
+
+      if (this.pollForm.invalid) {
+        console.log('vao');
+        this.message = 'Email không hợp lệ';
+        return;
+      }
+
+      if (!this.poll.fullName.match(this.FULLNAME_PATTERN) || this.poll.fullName.length <= 3) {
+        console.log('vao');
+        this.message = 'Họ và tên không hợp lệ';
+        return;
+      }
         const type = Number(this.pollForm.value.pcdt_s);
         // this.time = this.poll.time.getHours() + ':' + this.poll.time.getMinutes();
 
@@ -139,10 +170,12 @@ export class PollComponent implements OnInit {
           }
           </style>
         </head>
-    <body onload="window.print();window.close()">${printContents}</body>
+    <body onload='window.print();window.close()'>${printContents}</body>
       </html>`
     );
     popupWin.document.close();
   }
+
+
 
 }

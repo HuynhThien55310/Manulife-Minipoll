@@ -14,12 +14,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import { ChartComponent } from './components/chart/chart.component';
 import { PollService } from './services/poll.service';
+import { WinnerComponent } from './components/winner/winner.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PollComponent,
-    ChartComponent
+    ChartComponent,
+    WinnerComponent
   ],
   imports: [
     BrowserModule,
