@@ -16,12 +16,13 @@ import {
 import { Observable } from 'rxjs';
 import * as html2canvas from 'html2canvas';
 import domtoimage from 'dom-to-image';
+
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css']
+  selector: 'app-hn-chart',
+  templateUrl: './hn-chart.component.html',
+  styleUrls: ['./hn-chart.component.css']
 })
-export class ChartComponent implements OnInit {
+export class HNChartComponent implements OnInit {
   pollTT = <Poll>{};
   pollCB = <Poll>{};
   pollMH = <Poll>{};
@@ -44,7 +45,7 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     // Than trong
-    this.pollService.getTT().subscribe(polls => {
+    this.pollService.getTT_HN().subscribe(polls => {
       if (polls.length > 0) {
         this.pollTT = this.cast(polls[0]);
         polls.forEach(poll => {
@@ -66,12 +67,13 @@ export class ChartComponent implements OnInit {
         });
       }
 
+
       this.timett = this.setTime(this.pollTT.hour, this.pollTT.minute);
       this.ttQty = polls.length;
       console.log(this.pollTT, this.ttQty);
 
       // Can bang
-      this.pollService.getCB().subscribe(cbpolls => {
+      this.pollService.getCB_HN().subscribe(cbpolls => {
         if (cbpolls.length > 0) {
           this.pollCB = this.cast(cbpolls[0]);
           cbpolls.forEach(cbpoll => {
@@ -93,12 +95,11 @@ export class ChartComponent implements OnInit {
           });
         }
 
-
         this.timecb = this.setTime(this.pollCB.hour, this.pollCB.minute);
         this.cbQty = cbpolls.length;
         console.log(this.pollCB);
         // Mao hiem
-        this.pollService.getMH().subscribe(mhpolls => {
+        this.pollService.getMH_HN().subscribe(mhpolls => {
           if (mhpolls.length > 0) {
             this.pollMH = this.cast(mhpolls[0]);
             mhpolls.forEach(mhpoll => {
@@ -119,7 +120,6 @@ export class ChartComponent implements OnInit {
               }
             });
           }
-
 
           this.timemh = this.setTime(this.pollMH.hour, this.pollMH.minute);
           this.mhQty = mhpolls.length;

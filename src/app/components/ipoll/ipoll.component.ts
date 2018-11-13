@@ -5,12 +5,13 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { XRegExp} from 'xregexp';
+
 @Component({
-  selector: 'app-poll',
-  templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.css']
+  selector: 'app-ipoll',
+  templateUrl: './ipoll.component.html',
+  styleUrls: ['./ipoll.component.css']
 })
-export class PollComponent implements OnInit {
+export class IpollComponent implements OnInit {
   poll = <Poll>{};
   pollForm: FormGroup;
   isValid = true;
@@ -26,9 +27,9 @@ export class PollComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private readonly afs: AngularFirestore) {
-    this.ttCollection = afs.collection<Poll>('than_trong_HN');
-    this.cbCollection = afs.collection<Poll>('can_bang_HN');
-    this.mhCollection = afs.collection<Poll>('mao_hiem_HN');
+    this.ttCollection = afs.collection<Poll>('than_trong');
+    this.cbCollection = afs.collection<Poll>('can_bang');
+    this.mhCollection = afs.collection<Poll>('mao_hiem');
   }
 
   ngOnInit() {
@@ -98,24 +99,24 @@ export class PollComponent implements OnInit {
           // 1 for Thận trọng 2 for Cân bằng 3 for Mạo hiểm
             case 1:
               this.poll.investion = 'Thận trọng';
-              this.ttCollection.add(this.poll).then(res => {
-                // this.print();
+              // this.ttCollection.add(this.poll).then(res => {
+                this.print();
                 location.reload();
-              });
+              // });
               break;
             case 2:
               this.poll.investion = 'Cân bằng';
-              this.cbCollection.add(this.poll).then(res => {
-                // this.print();
+              // this.cbCollection.add(this.poll).then(res => {
+                this.print();
                 location.reload();
-            });
+            // });
               break;
             case 3:
               this.poll.investion = 'Mạo hiểm';
-              this.mhCollection.add(this.poll).then(res => {
-                // this.print();
+              // this.mhCollection.add(this.poll).then(res => {
+                this.print();
                 location.reload();
-              });
+              // });
               break;
         }
 
@@ -175,7 +176,4 @@ export class PollComponent implements OnInit {
     );
     popupWin.document.close();
   }
-
-
-
 }

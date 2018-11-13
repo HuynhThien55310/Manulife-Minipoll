@@ -15,13 +15,21 @@ import {MatInputModule} from '@angular/material/input';
 import { ChartComponent } from './components/chart/chart.component';
 import { PollService } from './services/poll.service';
 import { WinnerComponent } from './components/winner/winner.component';
+import { IpollComponent } from './components/ipoll/ipoll.component';
+import { HNChartComponent } from './components/hn-chart/hn-chart.component';
+import { HnWinnerComponent } from './components/hn-winner/hn-winner.component';
+import { ExportXlsxComponent } from './components/export-xlsx/export-xlsx.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PollComponent,
     ChartComponent,
-    WinnerComponent
+    WinnerComponent,
+    IpollComponent,
+    HNChartComponent,
+    HnWinnerComponent,
+    ExportXlsxComponent
   ],
   imports: [
     BrowserModule,

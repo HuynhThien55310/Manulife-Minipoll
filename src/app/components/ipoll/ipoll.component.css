@@ -1,45 +1,11 @@
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-/*
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf');
+ul.pcdt {
+  display: inline-flex;
 }
 
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf');
+input[type=radio] {
+  width: 20em;  height: 2em;
 }
 
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf');
-}
-
-@font-face {
-  font-family: Montserrat-Bold;
-  src: url('../fonts/montserrat/Montserrat-Bold.ttf');
-}
-*/
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
-* {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
-}
-
-body, html {
-	height: 100%;
-	font-family: Roboto, sans-serif;
-}
-
-/*---------------------------------------------*/
 a {
 	font-family: Roboto;
 	font-size: 14px;
@@ -217,7 +183,7 @@ iframe {
 
   width: 100%;
   display: block;
-  padding-bottom: 57px;
+  padding-bottom: 54px;
 }
 
 
@@ -472,14 +438,14 @@ iframe {
 .pcdt li {
   float:left;
   margin:0 5px 5px 0;
-  width:150px;
-  height:65px;
+  width:120px;
+  height:60px;
   position:relative;
 
   font-family: Roboto;
   font-size: 16px;
   text-align: center;
-  line-height: 3.6;
+  line-height: 3.1;
   color: #fff;
   text-transform: uppercase;
 
@@ -529,33 +495,3 @@ iframe {
 .pcdt li:hover {
   background:#8bc34a;
 }
-
-.result {
-  text-align: center;
-  padding-bottom: 50px;
-
-}
-
-.result-title {
-  font-family: Roboto;
-  font-size: 28px;
-  color: #333333;
-  line-height: 1.2;
-  text-align: center;
-  font-weight: bold;
-  width: 100%;
-  display: block;
-  padding-bottom: 35px;
-}
-
-.result-text {
-  color: #333333;
-  font-size: 25px;
-
-}
-
-.to-jpg {
-  width: 100%;
-  background-color: white;
-}
-

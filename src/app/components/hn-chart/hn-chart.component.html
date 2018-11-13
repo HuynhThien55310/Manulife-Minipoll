@@ -1,0 +1,17 @@
+<div class="limiter" style="position: relative;">
+  <div class="container-login100">
+    <div class="wrap-login100" style="width: 1400px; height: 750px ; padding: 61px 107px 33px 95px;">
+      <div [hidden]="!chart" id="chart" class="to-jpg">
+        <canvas id="canvas">{{ chart }}</canvas>
+      </div>
+      <div class="container-login100-form-btn">
+        <button class="login100-form-btn" style="width: 20%;" (click)="exportChart()">
+          Tải về kết quả
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

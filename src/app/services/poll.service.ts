@@ -25,4 +25,15 @@ export class PollService {
   getMH() {
     return this.afs.collection('mao_hiem').valueChanges();
   }
+
+  getTT_HN() {
+    return this.afs.collection('than_trong_HN').valueChanges();
+}
+
+  getCB_HN() {
+  return this.afs.collection('can_bang_HN').valueChanges();
+}
+  getMH_HN() {
+  return this.afs.collection('mao_hiem_HN').valueChanges();
+}
 }

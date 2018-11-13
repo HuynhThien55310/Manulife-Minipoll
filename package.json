@@ -30,6 +30,7 @@
     "firebase": "^5.5.5",
     "html2canvas": "^1.0.0-alpha.12",
     "rxjs": "~6.3.3",
+    "xlsx": "^0.14.0",
     "xregexp": "^4.2.0",
     "zone.js": "~0.8.26"
   },
