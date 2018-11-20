@@ -5,7 +5,9 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { XRegExp} from 'xregexp';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Inject} from '@angular/core';
+import { DialogComponent } from '../poll/poll.component';
 @Component({
   selector: 'app-ipoll',
   templateUrl: './ipoll.component.html',
@@ -26,7 +28,7 @@ export class IpollComponent implements OnInit {
   private mhCollection: AngularFirestoreCollection<Poll>;
 
 
-  constructor(private formBuilder: FormBuilder, private readonly afs: AngularFirestore) {
+  constructor(private formBuilder: FormBuilder, private readonly afs: AngularFirestore, public dialog: MatDialog) {
     this.ttCollection = afs.collection<Poll>('than_trong');
     this.cbCollection = afs.collection<Poll>('can_bang');
     this.mhCollection = afs.collection<Poll>('mao_hiem');
@@ -34,7 +36,7 @@ export class IpollComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-
+    // this.openDialog();
   }
 
   vote() {
@@ -99,24 +101,27 @@ export class IpollComponent implements OnInit {
           // 1 for Thận trọng 2 for Cân bằng 3 for Mạo hiểm
             case 1:
               this.poll.investion = 'Thận trọng';
-              // this.ttCollection.add(this.poll).then(res => {
-                this.print();
-                location.reload();
-              // });
+              this.ttCollection.add(this.poll).then(res => {
+                // this.print();
+                // location.reload();
+                this.openDialog();
+              });
               break;
             case 2:
               this.poll.investion = 'Cân bằng';
-              // this.cbCollection.add(this.poll).then(res => {
-                this.print();
-                location.reload();
-            // });
+              this.cbCollection.add(this.poll).then(res => {
+                // this.print();
+                // location.reload();
+                this.openDialog();
+            });
               break;
             case 3:
               this.poll.investion = 'Mạo hiểm';
-              // this.mhCollection.add(this.poll).then(res => {
-                this.print();
-                location.reload();
-              // });
+              this.mhCollection.add(this.poll).then(res => {
+                // this.print();
+                // location.reload();
+                this.openDialog();
+              });
               break;
         }
 
@@ -175,5 +180,15 @@ export class IpollComponent implements OnInit {
       </html>`
     );
     popupWin.document.close();
+  }
+
+  openDialog() {
+    // this.dialog.open(DialogComponent);
+    const dialogRef = this.dialog.open(DialogComponent, {
+      // height: '300px',
+      width: '450px',
+    });
+
+
   }
 }

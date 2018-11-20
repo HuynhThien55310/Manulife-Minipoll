@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { XRegExp} from 'xregexp';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Inject} from '@angular/core';
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
@@ -25,7 +27,7 @@ export class PollComponent implements OnInit {
   private mhCollection: AngularFirestoreCollection<Poll>;
 
 
-  constructor(private formBuilder: FormBuilder, private readonly afs: AngularFirestore) {
+  constructor(private formBuilder: FormBuilder, private readonly afs: AngularFirestore, public dialog: MatDialog) {
     this.ttCollection = afs.collection<Poll>('than_trong_HN');
     this.cbCollection = afs.collection<Poll>('can_bang_HN');
     this.mhCollection = afs.collection<Poll>('mao_hiem_HN');
@@ -33,7 +35,7 @@ export class PollComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-
+    // this.openDialog();
   }
 
   vote() {
@@ -98,23 +100,26 @@ export class PollComponent implements OnInit {
           // 1 for Thận trọng 2 for Cân bằng 3 for Mạo hiểm
             case 1:
               this.poll.investion = 'Thận trọng';
-              this.ttCollection.add(this.poll).then(res => {
+               this.ttCollection.add(this.poll).then(res => {
                 // this.print();
-                location.reload();
+                // location.reload();
+                this.openDialog();
               });
               break;
             case 2:
               this.poll.investion = 'Cân bằng';
               this.cbCollection.add(this.poll).then(res => {
                 // this.print();
-                location.reload();
+                // location.reload();
+                this.openDialog();
             });
               break;
             case 3:
               this.poll.investion = 'Mạo hiểm';
               this.mhCollection.add(this.poll).then(res => {
                 // this.print();
-                location.reload();
+                // location.reload();
+                this.openDialog();
               });
               break;
         }
@@ -176,6 +181,33 @@ export class PollComponent implements OnInit {
     popupWin.document.close();
   }
 
+  openDialog() {
+    // this.dialog.open(DialogComponent);
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '450px',
+    });
 
+
+  }
+
+
+}
+
+@Component({
+  selector: 'app-dialog',
+  templateUrl: 'dialog.html'
+})
+export class DialogComponent implements OnInit {
+
+  constructor(private matDialogRef: MatDialogRef<DialogComponent>) { }
+
+  ngOnInit() {
+
+  }
+
+  closeDialog() {
+    this.matDialogRef.close();
+    location.reload();
+  }
 
 }

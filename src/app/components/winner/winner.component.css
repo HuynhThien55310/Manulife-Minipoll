@@ -1,11 +1,8 @@
 hr{
   border: none;
-  border-left: 5px solid #00703C;
-  width: 5px;
+  border-left: 2px solid #4fa13a;
+  width: 2px;
   z-index: 99;
-  height: 58%;
-  margin-top: 90px;
-}
-p.result-text {
-  margin-left: 25px;
+  height: 54%;
+  margin-top: -32px;
 }

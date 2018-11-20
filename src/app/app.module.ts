@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
@@ -8,7 +9,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { PollComponent } from './components/poll/poll.component';
+import { PollComponent, DialogComponent } from './components/poll/poll.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
@@ -29,7 +30,11 @@ import { ExportXlsxComponent } from './components/export-xlsx/export-xlsx.compon
     IpollComponent,
     HNChartComponent,
     HnWinnerComponent,
-    ExportXlsxComponent
+    ExportXlsxComponent,
+    DialogComponent
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import { ExportXlsxComponent } from './components/export-xlsx/export-xlsx.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [PollService],
   bootstrap: [AppComponent]

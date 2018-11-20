@@ -1,0 +1,46 @@
+<div class="limiter" style="position: relative;">
+  <div class="container-login100" style="background-image: url(assets/images/winner.jpg); background-size: 100%;" id="winner">
+    <img class="logo1" style="height: 245px; margin-left: auto; margin-right: auto; position: absolute; z-index: 100; margin-top: -370px;" src="assets/images/chucmung.svg">
+    <div class="wrap-login100" style="width: 1300px; height: 650px; padding: 185px 107px 33px 95px;" >
+      <!-- <span style = "font-size: 50px; margin-left: 350px; font-family: 'Lobster'" >Xin chúc mừng</span> -->
+
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 80px; position: absolute;">
+        <span class="result-title" style="padding-bottom: 27px;">
+          NHÀ ĐẦU TƯ<br>THẬN TRỌNG
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollTT.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollTT.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollTT.predict}}</p>
+        <p class="result-text">Vào lúc: {{timett}}</p>
+      </div>
+      <hr style="margin-left: 345px;">
+      <hr style="margin-right: 345px;">
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 80px; position: absolute; margin-left: 400px;">
+        <span class="result-title" style="padding-bottom: 27px;">
+        NHÀ ĐẦU TƯ<br>CÂN BẰNG
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollCB.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollCB.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollCB.predict}}</p>
+        <p class="result-text">Vào lúc: {{timecb}}</p>
+      </div>
+      <div style="margin: 0px; padding: 0px; box-sizing: border-box; width: 300px; margin-top: 80px; position: absolute; margin-left: 800px;">
+        <span class="result-title" style="padding-bottom: 27px;">
+        NHÀ ĐẦU TƯ<br>MẠO HIỂM
+        </span>
+        <p class="result-text" style="font-weight: bold;">{{pollMH.fullName}}</p>
+        <p class="result-text">Dự đoán: {{pollMH.predict}}</p>
+        <p class="result-text">Số người dự đoán: {{pollMH.predict}}</p>
+        <p class="result-text">Vào lúc: {{timemh}}</p>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div class="container-login100-form-btn" style="position: absolute; top: 0; left: 0; z-index: 100; margin-top: 40%;">
+      <button class="login100-form-btn" style="width: 20%;" (click)="exportWinner()" id="btnDownload" >
+        Tải về kết quả
+      </button>
+    </div>
+</div>

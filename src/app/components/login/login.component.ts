@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }).then(res => {
       console.log(this.message);
       if (this.message === '') {
-        this.router.navigate(['poll']);
+        this.router.navigate(['poll-HCM']);
       }
     });
   }
