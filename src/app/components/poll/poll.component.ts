@@ -18,6 +18,7 @@ export class PollComponent implements OnInit {
   isValid = true;
   time: string;
   message = '';
+  score = 0;
   FULLNAME_PATTERN =
             '^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ' +
             'ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ' +
@@ -39,104 +40,83 @@ export class PollComponent implements OnInit {
   }
 
   vote() {
-    this.poll.email = this.pollForm.value.email;
     this.poll.fullName = this.pollForm.value.fullName;
     this.poll.phone = this.pollForm.value.phone;
-    this.poll.yearOfBirth = this.pollForm.value.yearOfBirth;
-    this.poll.predict = Number(this.pollForm.value.predict);
     this.poll.hour = new Date().getHours();
     this.poll.minute = new Date().getMinutes();
     console.log(this.poll);
-    if (this.poll.email === '' || this.poll.fullName === ''
-    || this.poll.phone === '' || this.poll.yearOfBirth === ''
-    || this.pollForm.value.predict === '' || this.pollForm.value.pcdt_s === '') {
+    if (
+      this.poll.fullName === '' ||
+      this.poll.phone === '' ||
+      this.pollForm.value.pcdt_1 === '' ||
+      this.pollForm.value.pcdt_2 === ''
+    ) {
       this.message = 'Vui lòng nhập đủ thông tin';
       console.log('not pass');
     } else {
-      if (isNaN(this.pollForm.value.predict) === true || this.poll.predict < 0) {
-        this.message = 'Dự đoán không hợp lệ';
-        return;
-      }
 
-      if (isNaN(this.pollForm.value.yearOfBirth) === true || Number(this.poll.yearOfBirth) < 1900 || Number(this.poll.yearOfBirth) > 2000) {
-        console.log('vao');
-        this.message = 'Năm sinh không hợp lệ';
-        return;
-      }
-
-      if (isNaN(this.pollForm.value.phone) === true || this.pollForm.value.phone.length < 9 || this.pollForm.value.phone.length > 11) {
+      if (
+        isNaN(this.pollForm.value.phone) === true ||
+        this.pollForm.value.phone.length < 9 ||
+        this.pollForm.value.phone.length > 11
+      ) {
         console.log('vao');
         this.message = 'Số điện thoại không hợp lệ';
         return;
       }
 
-      if (this.pollForm.invalid) {
-        console.log('vao');
-        this.message = 'Email không hợp lệ';
-        return;
-      }
-
-      if (!this.poll.fullName.match(this.FULLNAME_PATTERN) || this.poll.fullName.length <= 3) {
+      if (
+        !this.poll.fullName.match(this.FULLNAME_PATTERN) ||
+        this.poll.fullName.length <= 3
+      ) {
         console.log('vao');
         this.message = 'Họ và tên không hợp lệ';
         return;
       }
-        const type = Number(this.pollForm.value.pcdt_s);
-        // this.time = this.poll.time.getHours() + ':' + this.poll.time.getMinutes();
+      const type = Number(this.pollForm.value.pcdt_s);
+      // this.time = this.poll.time.getHours() + ':' + this.poll.time.getMinutes();
 
-        if (this.poll.hour < 10) {
-            this.time = '0' + this.poll.hour + ':';
-        } else {
-          this.time = this.poll.hour + ':';
-        }
-        if (this.poll.minute < 10) {
-          this.time = this.time + '0' + this.poll.minute;
-        } else {
-          this.time = this.time + this.poll.minute;
-        }
+      if (this.poll.hour < 10) {
+        this.time = '0' + this.poll.hour + ':';
+      } else {
+        this.time = this.poll.hour + ':';
+      }
+      if (this.poll.minute < 10) {
+        this.time = this.time + '0' + this.poll.minute;
+      } else {
+        this.time = this.time + this.poll.minute;
+      }
 
-
-        switch (type) {
-          // 1 for Thận trọng 2 for Cân bằng 3 for Mạo hiểm
-            case 1:
-              this.poll.investion = 'Thận trọng';
-               this.ttCollection.add(this.poll).then(res => {
-                // this.print();
-                // location.reload();
-                this.openDialog();
-              });
-              break;
-            case 2:
-              this.poll.investion = 'Cân bằng';
-              this.cbCollection.add(this.poll).then(res => {
-                // this.print();
-                // location.reload();
-                this.openDialog();
-            });
-              break;
-            case 3:
-              this.poll.investion = 'Mạo hiểm';
-              this.mhCollection.add(this.poll).then(res => {
-                // this.print();
-                // location.reload();
-                this.openDialog();
-              });
-              break;
-        }
-
-
+      // this.score = Number(Math.abs(this.pollForm.value.pcdt_1) + this.pollForm.value.pcdt_2);
+      if (this.score >= 2 && this.score <= 4) {
+        // THAN TRONG
+        this.ttCollection.add(this.poll).then(res => {
+          location.reload();
+        });
+        console.log(this.poll);
+      } else if (this.score >= 5 && this.score <= 7) {
+        // CAN BANG
+        this.cbCollection.add(this.poll).then(res => {
+          location.reload();
+        });
+        console.log(this.poll);
+      } else {
+        // MAO HIEM
+        this.mhCollection.add(this.poll).then(res => {
+          location.reload();
+        });
+        console.log(this.poll);
+      }
     }
   }
 
   buildForm(): void {
     this.pollForm = this.formBuilder.group({
-      'email': ['', [Validators.required, Validators.email]],
-      'phone': ['', [Validators.required]],
-      'fullName': ['', [Validators.required]],
-      'yearOfBirth': ['', [Validators.required]],
-      'predict': ['', [Validators.required]],
-      'pcdt_s': ['', [Validators.required]],
-
+      phone: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      predict: ['', [Validators.required]],
+      pcdt_1: ['', [Validators.required]],
+      pcdt_2: ['', [Validators.required]]
     });
   }
   print(): void {
@@ -183,10 +163,46 @@ export class PollComponent implements OnInit {
 
   openDialog() {
     // this.dialog.open(DialogComponent);
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '450px',
-    });
-
+    this.score =
+      Number(Math.abs(this.pollForm.value.pcdt_1)) +
+      Number(this.pollForm.value.pcdt_2);
+    console.log(this.score);
+    this.poll.fullName = this.pollForm.value.fullName;
+    this.poll.phone = this.pollForm.value.phone;
+    this.poll.hour = new Date().getHours();
+    this.poll.minute = new Date().getMinutes();
+    console.log(this.poll);
+    if (
+      this.poll.fullName === '' ||
+      this.poll.phone === '' ||
+      this.pollForm.value.pcdt_1 === '' ||
+      this.pollForm.value.pcdt_2 === ''
+    ) {
+      this.message = 'Vui lòng nhập đủ thông tin';
+      console.log('not pass');
+    } else {
+      if (this.score >= 2 && this.score <= 4) {
+        // THAN TRONG
+        this.poll.investion = 'Thận trọng';
+      } else if (this.score >= 5 && this.score <= 7) {
+        // CAN BANG
+        this.poll.investion = 'Cân bằng';
+      } else {
+        // MAO HIEM
+        this.poll.investion = 'Mạo hiểm';
+      }
+      const dialogRef = this.dialog.open(DialogComponent, {
+        height: '500px',
+        width: '500px',
+        data: this.poll.investion.toUpperCase()
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.poll.predict = dialogRef.componentInstance.getPredict();
+        console.log(dialogRef.componentInstance.getPredict());
+        this.vote();
+      });
+    }
 
   }
 
@@ -199,15 +215,31 @@ export class PollComponent implements OnInit {
 })
 export class DialogComponent implements OnInit {
 
-  constructor(private matDialogRef: MatDialogRef<DialogComponent>) { }
-
+  constructor(private matDialogRef: MatDialogRef<DialogComponent>, private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: string) { }
+  public investType = '';
+  public message = '';
+  dialogForm: FormGroup;
   ngOnInit() {
-
+    this.buildForm();
+    this.investType = this.data;
   }
 
   closeDialog() {
+    if (isNaN(this.dialogForm.value.predict) === true || Number(this.dialogForm.value.predict) < 0) {
+      this.message = 'Dự đoán không hợp lệ';
+      return;
+    }
     this.matDialogRef.close();
-    location.reload();
   }
 
+  buildForm(): void {
+    this.dialogForm = this.formBuilder.group({
+      'predict': ['', [Validators.required]]
+    });
+  }
+
+  getPredict() {
+    return Number(this.dialogForm.value.predict);
+  }
 }

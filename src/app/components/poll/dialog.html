@@ -1,6 +1,20 @@
 <div style="text-align: center;">
-  <span class="login100-form-title" style="color: #4fa13a; font-size: 32px;">Cảm ơn quý khách<br>đã tham gia khảo sát</span>
-  <button class="login100-form-btn" style="margin-top: -33px; display: inline-block;" (click)="closeDialog()">
-    OK
+  <span class="login100-form-title" style="color: #4fa13a; font-size: 32px;">Bạn là nhà đầu tư<br>{{investType}}</span>
+  <span class="login100-form-title" style="padding-top: 22px; color: #4fa13a;">
+    DỰ ĐOÁN SỐ NHÀ ĐẦU TƯ CÓ PHONG CÁCH GIỐNG BẠN
+</span>
+<form (submit)="closeDialog()" [formGroup]="dialogForm">
+<div class="wrap-input100" style="margin-top: -30px;">
+  <input class="input100" type="text" formControlName="predict" placeholder="Dự đoán">
+    <span class="focus-input100"></span>
+    <span class="symbol-input100">
+      <i class="fa fa-star" aria-hidden="true"></i>
+    </span>
+  </div>
+  <span class="login100-form-title" style="color: #4fa13a; font-size: 20px; padding-bottom: 10px">CÓ TẤT CẢ 300 NHÀ ĐẦU TƯ THAM GIA DỰ ĐOÁN</span>
+  <button class="login100-form-btn" style="margin-top: 23px; display: inline-block;" (click)="closeDialog()">
+    Hoàn tất dự đoán
   </button>
+  <span >{{message}}</span>
+</form>
 </div>

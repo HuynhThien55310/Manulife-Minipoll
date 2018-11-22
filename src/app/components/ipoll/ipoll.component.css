@@ -1,6 +1,6 @@
-ul.pcdt {
+/* ul.pcdt {
   display: inline-flex;
-}
+} */
 
 input[type=radio] {
   width: 20em;  height: 2em;
@@ -438,12 +438,12 @@ iframe {
 .pcdt li {
   float:left;
   margin:0 5px 5px 0;
-  width:120px;
-  height:60px;
+  width:440px;
+  height:70px;
   position:relative;
 
   font-family: Roboto;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   line-height: 3.1;
   color: #fff;
@@ -487,11 +487,22 @@ iframe {
 
 .pcdt label {
   padding:5px;
+  padding-top: 14px;
   /*border:1px solid #CCC; */
   cursor:pointer;
   z-index:90;
+  line-height: 22px;
+
 }
 
 .pcdt li:hover {
   background:#8bc34a;
+}
+
+.pcdt2 label {
+  padding-top: 25px;
+}
+
+.pcdt2 li {
+  font-size: 17px;
 }

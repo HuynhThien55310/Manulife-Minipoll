@@ -125,7 +125,6 @@ export class HnWinnerComponent implements OnInit {
 
   cast(obj) {
     const poll = <Poll>{};
-    poll.email = obj.email;
     poll.fullName = obj.fullName;
     poll.predict = obj.predict;
     poll.investion = obj.investion;
