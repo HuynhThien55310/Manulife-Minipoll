@@ -169,7 +169,6 @@ export class PollComponent implements OnInit {
 
         // open new dialog
         const tksdialogRef = this.dialog.open(TksDialogComponent, {
-          height: '500px'
         });
         tksdialogRef.afterClosed().subscribe(res => {
           console.log('The dialog was closed');

@@ -1,139 +1,139 @@
 <div class="limiter" style="position: relative;">
+  <div
+    class="container-login100"
+    style="background-image: url(assets/images/pollBG.png); display: grid; background-size: cover; background-repeat: repeat; padding-top: 2%; background-color: #c3c3c3;">
+    <img src="assets/images/minipoll-banner.png" style="width: 740px;">
     <div
-      class="container-login100"
-      style="background-image: url(assets/images/winner.jpg); background-size: 100%; background-repeat: no-repeat; padding-top: 20%; background-color: #153222;">
-      <div
-        class="wrap-login100"
-        style="width: 800px; padding: 60px 50px 33px 50px;"
+      class="wrap-login100"
+      style="width: 740px; padding: 60px 50px 33px 50px;"
+    >
+      <form
+        class="login100-form validate-form"
+        style="width: 100%;"
+        (submit)="openDialog()"
+        [formGroup]="pollForm"
       >
-        <form
-          class="login100-form validate-form"
-          style="width: 100%;"
-          (submit)="openDialog()"
-          [formGroup]="pollForm"
+        <span class="login100-form-title" style="color: #4fa13a;">
+          KHẢO SÁT PHONG CÁCH ĐẦU TƯ
+        </span>
+
+        <div class="wrap-input100">
+
+          <input
+            class="input100"
+            type="text"
+            formControlName="fullName"
+            placeholder="Họ và tên"
+          />
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div style="display: inline-flex; margin-bottom: 42px; width: 100%;">
+        <div class="wrap-input100" style="padding-right: 4px;">
+          <input
+            class="input100"
+            type="text"
+            formControlName="phone"
+            placeholder="Số điện thoại"
+          />
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div
+          class="wrap-input100 validate-input" style="padding-left: 4px;"
+          data-validate="Yêu cầu nhập đúng định dạng email: ex@abc.xyz"
         >
-          <span class="login100-form-title" style="color: #4fa13a;">
-            KHẢO SÁT PHONG CÁCH ĐẦU TƯ
-          </span>
-  
-          <div class="wrap-input100">
-  
-            <input
-              class="input100"
-              type="text"
-              formControlName="fullName"
-              placeholder="Họ và tên"
-            />
-            <span class="focus-input100"></span>
-            <span class="symbol-input100">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </span>
-          </div>
-  
-          <div style="display: inline-flex; margin-bottom: 42px; width: 100%;">
-          <div class="wrap-input100" style="padding-right: 4px;">
-            <input
-              class="input100"
-              type="text"
-              formControlName="phone"
-              placeholder="Số điện thoại"
-            />
-            <span class="focus-input100"></span>
-            <span class="symbol-input100">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div
-            class="wrap-input100 validate-input" style="padding-left: 4px;"
-            data-validate="Yêu cầu nhập đúng định dạng email: ex@abc.xyz"
-          >
-            <input
-              class="input100"
-              type="text"
-              formControlName="email"
-              placeholder="Email"
-            />
-            <span class="focus-input100"></span>
-            <span class="symbol-input100">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-            </span>
-          </div>
-        </div>
-        <div>
-          <span style="margin-top: 42px; padding: 8px; font-weight: bold; background-color: #ff7769; border-radius: 7px; color: #fff; font-size:16px"
-          >Câu nào dưới đây mô tả đúng nhất về Bạn?
+          <input
+            class="input100"
+            type="text"
+            formControlName="email"
+            placeholder="Email"
+          />
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
           </span>
         </div>
-          <div>
-            <ul style="padding-top: 15px;">
-                <p>
-              <input type="radio" id="pc11" formControlName="pcdt_1" value="4" />
-              <label style="vertical-align: bottom; font-size: 13px;">Dưới 35 tuổi và dùng dưới 30% thu nhập chi trả các khoản vay
-                và chi tiêu lớn</label>
-            </p>
-            <p>
-              <input type="radio" id="pc12" formControlName="pcdt_1" value="2" />
-              <label style="vertical-align: bottom; font-size: 13px;">Dưới 35 tuổi và dùng trên 30% thu nhập chi trả các khoản vay
-                và chi tiêu lớn</label>
-            </p>
-            <p>
-              <input type="radio" id="pc13" formControlName="pcdt_1" value="5" />
-              <label style="vertical-align: bottom; font-size: 13px;">Từ 35 - 55 tuổi và dùng dưới 30% thu nhập chi trả các khoản
-                vay và chi tiêu lớn</label>
-              </p>
-              <p>
-              <input type="radio" id="pc14" formControlName="pcdt_1" value="3" />
-              <label style="vertical-align: bottom; font-size: 13px;">Từ 35 - 55 tuổi và dùng trên 30% thu nhập chi trả các khoản
-                vay và chi tiêu lớn
-              </label>
-            </p>
-            <p>
-              <input type="radio" id="pc15" formControlName="pcdt_1" value="-3" />
-              <label style="vertical-align: bottom; font-size: 13px;">Đã hoặc sắp nghỉ hưu và dùng dưới 30% thu nhập chi trả các
-                khoản vay và chi tiêu lớn</label>
-            </p>
-            <p>
-              <input type="radio" id="pc16" formControlName="pcdt_1" value="1" />
-              <label style="vertical-align: bottom; font-size: 13px;">Đã hoặc sắp nghỉ hưu và dùng trên 30% thu nhập chi trả các
-                khoản vay và chi tiêu lớn</label>
-              </p>
-            </ul>
-          </div>
-          <div style="margin-top: 42px;">
-          <span style="padding: 8px; font-weight: bold; background-color: #f49600; border-radius: 7px; color: #fff; font-size:16px"
-          >Mức biến động lợi nhuận và thua lỗ Bạn có thể chấp nhận trong một năm
-          </span>
-        </div>
-          <div style="padding-top: 15px;">
-            <ul>
-            <p>
-              <input type="radio" id="pc21" formControlName="pcdt_2" value="1" />
-              <label style="vertical-align: bottom; font-size: 15px;">Khoảng 5%</label>
-            </p><p>
-              <input type="radio" id="pc22" formControlName="pcdt_2" value="2" />
-              <label style="vertical-align: bottom; font-size: 15px;">Khoảng 10% </label>
-            </p><p>
-              <input type="radio" id="pc23" formControlName="pcdt_2" value="3" />
-              <label style="vertical-align: bottom; font-size: 15px;">Khoảng 15%</label>
-            </p><p>
-              <input type="radio" id="pc24" formControlName="pcdt_2" value="4" />
-              <label style="vertical-align: bottom; font-size: 15px;">Khoảng 20% </label>
-            </p><p>
-              <input type="radio" id="pc25" formControlName="pcdt_2" value="5" />
-              <label style="vertical-align: bottom; font-size: 15px;">Khoảng 25%</label>
-            </p>
-            </ul>
-          </div>
-  
-          <div class="container-login100-form-btn">
-            <button class="login100-form-btn" style="display: inline-block;">
-              Xem kết quả
-            </button>
-            <span>{{ message }}</span>
-          </div>
-        </form>
       </div>
-      <br />
+      <div>
+        <span style="margin-top: 42px; padding: 8px; font-weight: bold; background-color: #ff7769; border-radius: 7px; color: #fff; font-size:16px"
+        >Câu nào dưới đây mô tả đúng nhất về Bạn?
+        </span>
+      </div>
+        <div>
+          <ul style="padding-top: 15px;">
+              <p>
+            <input type="radio" id="pc11" formControlName="pcdt_1" value="4" />
+            <label style="vertical-align: bottom; font-size: 13px;">Dưới 35 tuổi và dùng dưới 30% thu nhập chi trả các khoản vay
+              và chi tiêu lớn</label>
+          </p>
+          <p>
+            <input type="radio" id="pc12" formControlName="pcdt_1" value="2" />
+            <label style="vertical-align: bottom; font-size: 13px;">Dưới 35 tuổi và dùng trên 30% thu nhập chi trả các khoản vay
+              và chi tiêu lớn</label>
+          </p>
+          <p>
+            <input type="radio" id="pc13" formControlName="pcdt_1" value="5" />
+            <label style="vertical-align: bottom; font-size: 13px;">Từ 35 - 55 tuổi và dùng dưới 30% thu nhập chi trả các khoản
+              vay và chi tiêu lớn</label>
+            </p>
+            <p>
+            <input type="radio" id="pc14" formControlName="pcdt_1" value="3" />
+            <label style="vertical-align: bottom; font-size: 13px;">Từ 35 - 55 tuổi và dùng trên 30% thu nhập chi trả các khoản
+              vay và chi tiêu lớn
+            </label>
+          </p>
+          <p>
+            <input type="radio" id="pc15" formControlName="pcdt_1" value="-3" />
+            <label style="vertical-align: bottom; font-size: 13px;">Đã hoặc sắp nghỉ hưu và dùng dưới 30% thu nhập chi trả các
+              khoản vay và chi tiêu lớn</label>
+          </p>
+          <p>
+            <input type="radio" id="pc16" formControlName="pcdt_1" value="1" />
+            <label style="vertical-align: bottom; font-size: 13px;">Đã hoặc sắp nghỉ hưu và dùng trên 30% thu nhập chi trả các
+              khoản vay và chi tiêu lớn</label>
+            </p>
+          </ul>
+        </div>
+        <div style="margin-top: 42px;">
+        <span style="padding: 8px; font-weight: bold; background-color: #f49600; border-radius: 7px; color: #fff; font-size:16px"
+        >Mức biến động lợi nhuận và thua lỗ Bạn có thể chấp nhận trong một năm
+        </span>
+      </div>
+        <div style="padding-top: 15px;">
+          <ul>
+          <p>
+            <input type="radio" id="pc21" formControlName="pcdt_2" value="1" />
+            <label style="vertical-align: bottom; font-size: 15px;">Khoảng 5%</label>
+          </p><p>
+            <input type="radio" id="pc22" formControlName="pcdt_2" value="2" />
+            <label style="vertical-align: bottom; font-size: 15px;">Khoảng 10% </label>
+          </p><p>
+            <input type="radio" id="pc23" formControlName="pcdt_2" value="3" />
+            <label style="vertical-align: bottom; font-size: 15px;">Khoảng 15%</label>
+          </p><p>
+            <input type="radio" id="pc24" formControlName="pcdt_2" value="4" />
+            <label style="vertical-align: bottom; font-size: 15px;">Khoảng 20% </label>
+          </p><p>
+            <input type="radio" id="pc25" formControlName="pcdt_2" value="5" />
+            <label style="vertical-align: bottom; font-size: 15px;">Khoảng 25%</label>
+          </p>
+          </ul>
+        </div>
+
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn" style="display: inline-block;">
+            Xem kết quả
+          </button>
+          <span>{{ message }}</span>
+        </div>
+      </form>
     </div>
+    <br />
   </div>
-  
+</div>

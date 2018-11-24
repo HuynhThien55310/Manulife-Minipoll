@@ -185,7 +185,6 @@ export class IpollComponent implements OnInit {
 
         // open new dialog
         const tksdialogRef = this.dialog.open(TksDialogComponent, {
-          height: '500px'
         });
         tksdialogRef.afterClosed().subscribe(res => {
           console.log('The dialog was closed');
@@ -198,9 +197,7 @@ export class IpollComponent implements OnInit {
   }
 
   openDialogForTest() {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '650px',
-      data: 8
+    const dialogRef = this.dialog.open(TksDialogComponent, {
     });
   }
 }
