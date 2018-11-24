@@ -44,6 +44,7 @@ export class PollComponent implements OnInit {
     this.poll.phone = this.pollForm.value.phone;
     this.poll.hour = new Date().getHours();
     this.poll.minute = new Date().getMinutes();
+    this.poll.email = this.pollForm.value.email;
     console.log(this.poll);
     if (
       this.poll.fullName === '' ||
@@ -55,24 +56,6 @@ export class PollComponent implements OnInit {
       console.log('not pass');
     } else {
 
-      if (
-        isNaN(this.pollForm.value.phone) === true ||
-        this.pollForm.value.phone.length < 9 ||
-        this.pollForm.value.phone.length > 11
-      ) {
-        console.log('vao');
-        this.message = 'Số điện thoại không hợp lệ';
-        return;
-      }
-
-      if (
-        !this.poll.fullName.match(this.FULLNAME_PATTERN) ||
-        this.poll.fullName.length <= 3
-      ) {
-        console.log('vao');
-        this.message = 'Họ và tên không hợp lệ';
-        return;
-      }
       const type = Number(this.pollForm.value.pcdt_s);
       // this.time = this.poll.time.getHours() + ':' + this.poll.time.getMinutes();
 
@@ -112,53 +95,12 @@ export class PollComponent implements OnInit {
 
   buildForm(): void {
     this.pollForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       fullName: ['', [Validators.required]],
-      predict: ['', [Validators.required]],
       pcdt_1: ['', [Validators.required]],
       pcdt_2: ['', [Validators.required]]
     });
-  }
-  print(): void {
-    let printContents, popupWin;
-    printContents =
-    `<div>
-    <h1>PHIẾU IN KẾT QUẢ</h1>
-    <span>Tên nhà đâu tư: </span> <label>${this.poll.fullName}</label>
-    <p></p>
-    <span>Bạn là: </span><label>Nhà đầu tư ${this.poll.investion}</label>
-    <p></p>
-    <span>Số lượng dự đoán: </span><label>${this.poll.predict}</label>
-    <p></p>
-    <span>Thời gian: </span><label>${this.time}</label>
-    </div>`;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=450px,width=450px');
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Minipoll</title>
-          <style>
-          h1 {
-            text-align: center;
-          }
-          div {
-            height=450px;
-            width=450px;
-          }
-          label {
-            font-size: 20px;
-          }
-          span {
-            font-weight: bold;
-            font-size: 20px;
-          }
-          </style>
-        </head>
-    <body onload='window.print();window.close()'>${printContents}</body>
-      </html>`
-    );
-    popupWin.document.close();
   }
 
   openDialog() {
@@ -181,6 +123,30 @@ export class PollComponent implements OnInit {
       this.message = 'Vui lòng nhập đủ thông tin';
       console.log('not pass');
     } else {
+      if (
+        isNaN(this.pollForm.value.phone) === true ||
+        this.pollForm.value.phone.length < 9 ||
+        this.pollForm.value.phone.length > 11
+      ) {
+        console.log('vao');
+        this.message = 'Số điện thoại không hợp lệ';
+        return;
+      }
+
+      if (this.pollForm.invalid) {
+        console.log('vao');
+        this.message = 'Email không hợp lệ';
+        return;
+      }
+
+      if (
+        !this.poll.fullName.match(this.FULLNAME_PATTERN) ||
+        this.poll.fullName.length <= 3
+      ) {
+        console.log('vao');
+        this.message = 'Họ và tên không hợp lệ';
+        return;
+      }
       if (this.score >= 2 && this.score <= 4) {
         // THAN TRONG
         this.poll.investion = 'Thận trọng';
@@ -192,18 +158,27 @@ export class PollComponent implements OnInit {
         this.poll.investion = 'Mạo hiểm';
       }
       const dialogRef = this.dialog.open(DialogComponent, {
-        height: '500px',
-        width: '500px',
-        data: this.poll.investion.toUpperCase()
+        width: '650px',
+        data: this.score
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        // console.log('The dialog was closed');
         this.poll.predict = dialogRef.componentInstance.getPredict();
-        console.log(dialogRef.componentInstance.getPredict());
-        this.vote();
+        // console.log(dialogRef.componentInstance.getPredict());
+        // this.vote();
+
+        // open new dialog
+        const tksdialogRef = this.dialog.open(TksDialogComponent, {
+          height: '500px'
+        });
+        tksdialogRef.afterClosed().subscribe(res => {
+          console.log('The dialog was closed');
+          // this.poll.predict = dialogRef.componentInstance.getPredict();
+          // console.log(dialogRef.componentInstance.getPredict());
+          this.vote();
+        });
       });
     }
-
   }
 
 
@@ -214,15 +189,27 @@ export class PollComponent implements OnInit {
   templateUrl: 'dialog.html'
 })
 export class DialogComponent implements OnInit {
-
   constructor(private matDialogRef: MatDialogRef<DialogComponent>, private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA) public data: Number) { }
   public investType = '';
   public message = '';
+  public typeColor = '';
   dialogForm: FormGroup;
   ngOnInit() {
     this.buildForm();
-    this.investType = this.data;
+    if (this.data >= 2 && this.data <= 4) {
+      // THAN TRONG
+      this.investType = 'THẬN TRỌNG';
+      this.typeColor = '#06c7ba';
+    } else if (this.data >= 5 && this.data <= 7) {
+      // CAN BANG
+      this.investType = 'CÂN BẰNG';
+      this.typeColor = '#F49600';
+    } else {
+      // MAO HIEM
+      this.investType = 'MẠO HIỂM';
+      this.typeColor = '#FF7796';
+    }
   }
 
   closeDialog() {
@@ -242,4 +229,15 @@ export class DialogComponent implements OnInit {
   getPredict() {
     return Number(this.dialogForm.value.predict);
   }
+}
+
+@Component({
+  selector: 'app-tks-dialog',
+  templateUrl: 'tksDialog.html'
+})
+export class TksDialogComponent implements OnInit {
+  constructor(private matDialogRef: MatDialogRef<DialogComponent>) { }
+  ngOnInit() {
+  }
+
 }

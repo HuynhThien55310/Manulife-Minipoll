@@ -3,7 +3,9 @@
 } */
 
 input[type=radio] {
-  width: 20em;  height: 2em;
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
 }
 
 a {
@@ -183,7 +185,7 @@ iframe {
 
   width: 100%;
   display: block;
-  padding-bottom: 54px;
+  padding-bottom: 35px;
 }
 
 

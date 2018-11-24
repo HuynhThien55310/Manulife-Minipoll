@@ -19,7 +19,7 @@ import {
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { DialogComponent } from '../poll/poll.component';
+import { DialogComponent, TksDialogComponent } from '../poll/poll.component';
 @Component({
   selector: 'app-ipoll',
   templateUrl: './ipoll.component.html',
@@ -52,7 +52,7 @@ export class IpollComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    // this.openDialog();
+    // this.openDialogForTest();
   }
 
   vote() {
@@ -60,6 +60,7 @@ export class IpollComponent implements OnInit {
     this.poll.phone = this.pollForm.value.phone;
     this.poll.hour = new Date().getHours();
     this.poll.minute = new Date().getMinutes();
+    this.poll.email = this.pollForm.value.email;
     console.log(this.poll);
     if (
       this.poll.fullName === '' ||
@@ -71,24 +72,6 @@ export class IpollComponent implements OnInit {
       console.log('not pass');
     } else {
 
-      if (
-        isNaN(this.pollForm.value.phone) === true ||
-        this.pollForm.value.phone.length < 9 ||
-        this.pollForm.value.phone.length > 11
-      ) {
-        console.log('vao');
-        this.message = 'Số điện thoại không hợp lệ';
-        return;
-      }
-
-      if (
-        !this.poll.fullName.match(this.FULLNAME_PATTERN) ||
-        this.poll.fullName.length <= 3
-      ) {
-        console.log('vao');
-        this.message = 'Họ và tên không hợp lệ';
-        return;
-      }
       const type = Number(this.pollForm.value.pcdt_s);
       // this.time = this.poll.time.getHours() + ':' + this.poll.time.getMinutes();
 
@@ -128,55 +111,12 @@ export class IpollComponent implements OnInit {
 
   buildForm(): void {
     this.pollForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       fullName: ['', [Validators.required]],
-      predict: ['', [Validators.required]],
       pcdt_1: ['', [Validators.required]],
       pcdt_2: ['', [Validators.required]]
     });
-  }
-  print(): void {
-    let printContents, popupWin;
-    printContents = `<div>
-    <h1>PHIẾU IN KẾT QUẢ</h1>
-    <span>Tên nhà đâu tư: </span> <label>${this.poll.fullName}</label>
-    <p></p>
-    <span>Bạn là: </span><label>Nhà đầu tư ${this.poll.investion}</label>
-    <p></p>
-    <span>Số lượng dự đoán: </span><label>${this.poll.predict}</label>
-    <p></p>
-    <span>Thời gian: </span><label>${this.time}</label>
-    </div>`;
-    popupWin = window.open(
-      '',
-      '_blank',
-      'top=0,left=0,height=450px,width=450px'
-    );
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Minipoll</title>
-          <style>
-          h1 {
-            text-align: center;
-          }
-          div {
-            height=450px;
-            width=450px;
-          }
-          label {
-            font-size: 20px;
-          }
-          span {
-            font-weight: bold;
-            font-size: 20px;
-          }
-          </style>
-        </head>
-    <body onload='window.print();window.close()'>${printContents}</body>
-      </html>`);
-    popupWin.document.close();
   }
 
   openDialog() {
@@ -199,6 +139,30 @@ export class IpollComponent implements OnInit {
       this.message = 'Vui lòng nhập đủ thông tin';
       console.log('not pass');
     } else {
+      if (
+        isNaN(this.pollForm.value.phone) === true ||
+        this.pollForm.value.phone.length < 9 ||
+        this.pollForm.value.phone.length > 11
+      ) {
+        console.log('vao');
+        this.message = 'Số điện thoại không hợp lệ';
+        return;
+      }
+
+      if (this.pollForm.invalid) {
+        console.log('vao');
+        this.message = 'Email không hợp lệ';
+        return;
+      }
+
+      if (
+        !this.poll.fullName.match(this.FULLNAME_PATTERN) ||
+        this.poll.fullName.length <= 3
+      ) {
+        console.log('vao');
+        this.message = 'Họ và tên không hợp lệ';
+        return;
+      }
       if (this.score >= 2 && this.score <= 4) {
         // THAN TRONG
         this.poll.investion = 'Thận trọng';
@@ -210,17 +174,33 @@ export class IpollComponent implements OnInit {
         this.poll.investion = 'Mạo hiểm';
       }
       const dialogRef = this.dialog.open(DialogComponent, {
-        height: '500px',
-        width: '500px',
-        data: this.poll.investion.toUpperCase()
+        width: '650px',
+        data: this.score
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        // console.log('The dialog was closed');
         this.poll.predict = dialogRef.componentInstance.getPredict();
-        console.log(dialogRef.componentInstance.getPredict());
-        this.vote();
+        // console.log(dialogRef.componentInstance.getPredict());
+        // this.vote();
+
+        // open new dialog
+        const tksdialogRef = this.dialog.open(TksDialogComponent, {
+          height: '500px'
+        });
+        tksdialogRef.afterClosed().subscribe(res => {
+          console.log('The dialog was closed');
+          // this.poll.predict = dialogRef.componentInstance.getPredict();
+          // console.log(dialogRef.componentInstance.getPredict());
+          this.vote();
+        });
       });
     }
+  }
 
+  openDialogForTest() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '650px',
+      data: 8
+    });
   }
 }

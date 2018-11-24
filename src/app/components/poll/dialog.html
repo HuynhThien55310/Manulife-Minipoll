@@ -1,19 +1,22 @@
-<div style="text-align: center;">
-  <span class="login100-form-title" style="color: #4fa13a; font-size: 32px;">Bạn là nhà đầu tư<br>{{investType}}</span>
-  <span class="login100-form-title" style="padding-top: 22px; color: #4fa13a;">
-    DỰ ĐOÁN SỐ NHÀ ĐẦU TƯ CÓ PHONG CÁCH GIỐNG BẠN
-</span>
-<form (submit)="closeDialog()" [formGroup]="dialogForm">
-<div class="wrap-input100" style="margin-top: -30px;">
+<div style="text-align: center; padding-top: 20px; padding-bottom: 20px;">
+  <div>
+  <span class="dialog" style="font-weight: bold;font-size: 25px;">Phong cách đầu tư của bạn:</span><br><br>
+  <span class="dialog" [style.background-color]="typeColor" style="font-weight: bold;font-size: 30px; color: #fff;
+  padding: 8px 16px 8px 16px; border-radius: 7px;">{{investType}}</span><br><br><br>
+  <span class="dialog" style="font-weight: bold; background-color: #4e4eb9; color: #fff;
+  padding: 8px; border-radius: 7px;font-size:18px">Dự đoán số nhà đầu tư có cùng phong cách đầu tư với Bạn?</span><br><br>
+  <span class="dialog" style="font-weight: bold;font-size:16px">(Có 300 nhà đầu tư tham gia chương trình)</span><br><br>
+  </div>
+<form style="width: 60%; margin-left: auto; margin-right: auto;" (submit)="closeDialog()" [formGroup]="dialogForm">
+<div class="wrap-input100">
   <input class="input100" type="text" formControlName="predict" placeholder="Dự đoán">
     <span class="focus-input100"></span>
     <span class="symbol-input100">
       <i class="fa fa-star" aria-hidden="true"></i>
     </span>
   </div>
-  <span class="login100-form-title" style="color: #4fa13a; font-size: 20px; padding-bottom: 10px">CÓ TẤT CẢ 300 NHÀ ĐẦU TƯ THAM GIA DỰ ĐOÁN</span>
-  <button class="login100-form-btn" style="margin-top: 23px; display: inline-block;" (click)="closeDialog()">
-    Hoàn tất dự đoán
+  <button class="login100-form-btn" style="display: inline-block;" (click)="closeDialog()">
+    Kết thúc
   </button>
   <span >{{message}}</span>
 </form>

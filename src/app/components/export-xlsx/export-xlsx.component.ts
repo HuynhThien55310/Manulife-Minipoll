@@ -99,6 +99,7 @@ export class ExportXlsxComponent implements OnInit {
   cast(obj) {
     const invester = <Invester>{};
     invester['Họ và tên'] = obj.fullName;
+    invester.Email = obj.email;
     invester['Số điện thoại'] = obj.phone;
     invester['Kiểu nhà đầu tư'] = obj.investion;
     invester['Dự đoán'] = obj.predict;
