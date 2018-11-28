@@ -64,7 +64,6 @@ export class IpollComponent implements OnInit {
     console.log(this.poll);
     if (
       this.poll.fullName === '' ||
-      this.poll.phone === '' ||
       this.pollForm.value.pcdt_1 === '' ||
       this.pollForm.value.pcdt_2 === ''
     ) {
@@ -111,8 +110,8 @@ export class IpollComponent implements OnInit {
 
   buildForm(): void {
     this.pollForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
+      email: ['', ],
+      phone: ['', ],
       fullName: ['', [Validators.required]],
       pcdt_1: ['', [Validators.required]],
       pcdt_2: ['', [Validators.required]]
@@ -132,28 +131,13 @@ export class IpollComponent implements OnInit {
     console.log(this.poll);
     if (
       this.poll.fullName === '' ||
-      this.poll.phone === '' ||
       this.pollForm.value.pcdt_1 === '' ||
       this.pollForm.value.pcdt_2 === ''
     ) {
       this.message = 'Vui lòng nhập đủ thông tin';
       console.log('not pass');
     } else {
-      if (
-        isNaN(this.pollForm.value.phone) === true ||
-        this.pollForm.value.phone.length < 9 ||
-        this.pollForm.value.phone.length > 11
-      ) {
-        console.log('vao');
-        this.message = 'Số điện thoại không hợp lệ';
-        return;
-      }
 
-      if (this.pollForm.invalid) {
-        console.log('vao');
-        this.message = 'Email không hợp lệ';
-        return;
-      }
 
       if (
         !this.poll.fullName.match(this.FULLNAME_PATTERN) ||

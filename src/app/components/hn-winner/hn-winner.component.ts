@@ -46,78 +46,82 @@ export class HnWinnerComponent implements OnInit {
   ngOnInit() {
     // Than trong
     this.pollService.getTT_HN().subscribe(polls => {
-      this.pollTT = this.cast(polls[0]);
-      polls.forEach(poll => {
-        if (
-          Math.abs(this.pollTT.predict - polls.length) >
-          Math.abs(poll['predict'] - polls.length)
-        ) {
-          this.pollTT = this.cast(poll);
-        } else if (
-          Math.abs(this.pollTT.predict - polls.length) ===
-          Math.abs(poll['predict'] - polls.length)
-        ) {
-          if (this.pollTT.hour > poll['hour']) {
-            this.pollTT = this.cast(poll);
-          } else if (this.pollTT.minute > poll['minute']) {
-            this.pollTT = this.cast(poll);
-          }
-        }
-      });
-
-      this.timett = this.setTime(this.pollTT.hour, this.pollTT.minute);
-      this.ttQty = polls.length;
-      console.log(this.pollTT, this.ttQty);
-
-      // Can bang
-      this.pollService.getCB_HN().subscribe(cbpolls => {
-        this.pollCB = this.cast(cbpolls[0]);
-        cbpolls.forEach(cbpoll => {
+      if (polls.length > 0) {
+        this.pollTT = this.cast(polls[0]);
+        polls.forEach(poll => {
           if (
-            Math.abs(this.pollCB.predict - cbpolls.length) >
-            Math.abs(cbpoll['predict'] - cbpolls.length)
+            Math.abs(this.pollTT.predict - polls.length) >
+            Math.abs(poll['predict'] - polls.length)
           ) {
-            this.pollCB = this.cast(cbpoll);
+            this.pollTT = this.cast(poll);
           } else if (
-            Math.abs(this.pollCB.predict - cbpolls.length) ===
-            Math.abs(cbpoll['predict'] - cbpolls.length)
+            Math.abs(this.pollTT.predict - polls.length) ===
+            Math.abs(poll['predict'] - polls.length)
           ) {
-            if (this.pollCB.hour > cbpoll['hour']) {
-              this.pollCB = this.cast(cbpoll);
-            } else if (this.pollCB.minute > cbpoll['minute']) {
-              this.pollCB = this.cast(cbpoll);
+            if (this.pollTT.hour > poll['hour']) {
+              this.pollTT = this.cast(poll);
+            } else if (this.pollTT.minute > poll['minute']) {
+              this.pollTT = this.cast(poll);
             }
           }
         });
 
-        this.timecb = this.setTime(this.pollCB.hour, this.pollCB.minute);
-        this.cbQty = cbpolls.length;
-        console.log(this.pollCB);
-        // Mao hiem
-        this.pollService.getMH_HN().subscribe(mhpolls => {
-          this.pollMH = this.cast(mhpolls[0]);
-          mhpolls.forEach(mhpoll => {
+        this.timett = this.setTime(this.pollTT.hour, this.pollTT.minute);
+        this.ttQty = polls.length;
+        console.log(this.pollTT, this.ttQty);
+      }
+
+      // Can bang
+      this.pollService.getCB_HN().subscribe(cbpolls => {
+        if (cbpolls.length > 0) {
+          this.pollCB = this.cast(cbpolls[0]);
+          cbpolls.forEach(cbpoll => {
             if (
-              Math.abs(this.pollMH.predict - mhpolls.length) >
-              Math.abs(mhpoll['predict'] - mhpolls.length)
+              Math.abs(this.pollCB.predict - cbpolls.length) >
+              Math.abs(cbpoll['predict'] - cbpolls.length)
             ) {
-              this.pollMH = this.cast(mhpoll);
+              this.pollCB = this.cast(cbpoll);
             } else if (
-              Math.abs(this.pollMH.predict - mhpolls.length) ===
-              Math.abs(mhpoll['predict'] - mhpolls.length)
+              Math.abs(this.pollCB.predict - cbpolls.length) ===
+              Math.abs(cbpoll['predict'] - cbpolls.length)
             ) {
-              if (this.pollMH.hour > mhpoll['hour']) {
-                this.pollMH = this.cast(mhpoll);
-              } else if (this.pollMH.minute > mhpoll['minute']) {
-                this.pollMH = this.cast(mhpoll);
+              if (this.pollCB.hour > cbpoll['hour']) {
+                this.pollCB = this.cast(cbpoll);
+              } else if (this.pollCB.minute > cbpoll['minute']) {
+                this.pollCB = this.cast(cbpoll);
               }
             }
           });
+            this.timecb = this.setTime(this.pollCB.hour, this.pollCB.minute);
+          this.cbQty = cbpolls.length;
+          console.log(this.pollCB);
+        }
 
-          this.timemh = this.setTime(this.pollMH.hour, this.pollMH.minute);
-          this.mhQty = mhpolls.length;
-          console.log(this.pollMH);
-
+        // Mao hiem
+        this.pollService.getMH_HN().subscribe(mhpolls => {
+          if (mhpolls.length > 0) {
+            this.pollMH = this.cast(mhpolls[0]);
+            mhpolls.forEach(mhpoll => {
+              if (
+                Math.abs(this.pollMH.predict - mhpolls.length) >
+                Math.abs(mhpoll['predict'] - mhpolls.length)
+              ) {
+                this.pollMH = this.cast(mhpoll);
+              } else if (
+                Math.abs(this.pollMH.predict - mhpolls.length) ===
+                Math.abs(mhpoll['predict'] - mhpolls.length)
+              ) {
+                if (this.pollMH.hour > mhpoll['hour']) {
+                  this.pollMH = this.cast(mhpoll);
+                } else if (this.pollMH.minute > mhpoll['minute']) {
+                  this.pollMH = this.cast(mhpoll);
+                }
+              }
+            });
+            this.timemh = this.setTime(this.pollMH.hour, this.pollMH.minute);
+            this.mhQty = mhpolls.length;
+            console.log(this.pollMH);
+          }
         });
       });
     });
